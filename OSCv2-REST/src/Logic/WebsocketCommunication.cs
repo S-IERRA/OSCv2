@@ -21,19 +21,11 @@ public class WebsocketCommunication
         ChannelMessageQueue messageQueue = RedisSubscriber.Subscribe(GeneralChannel);
         messageQueue.OnMessage(message =>
         {
+            //Currently no messages to handle
             if (!JsonHelper.TryDeserialize<TransferMessage>(message.ToString(), out var transferMessage))
             {
                 //RedisSubscriber.PublishAsync()
                 return;
-            }
-
-            if (!Guid.TryParse(transferMessage.Data, out var sessionId))
-                return;
-
-            //No client->server op-codes to handle atm
-            switch (transferMessage.OpCodes)
-            {
-                
             }
         });
     }

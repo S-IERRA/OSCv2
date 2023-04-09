@@ -37,28 +37,24 @@ public class WebSocketServer : IDisposable
         _state = SocketState.Connected;
     }
 
-    public async Task<bool> TryConnect(IPEndPoint endPoint)
-    { 
-        using var socket = new Socket(SocketType.Stream, ProtocolType.Tcp);
+    public Socket? TryConnect(IPEndPoint endPoint)
+    {
+        Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
         try
         {
-            await socket.ConnectAsync(endPoint);
+            socket.Connect(endPoint);
+
+            var socketUser = new SocketUser(socket);
+            _ = VirtualUserHandler(socketUser);
+            return socket;
         }
-        catch 
+        catch
         {
-            return false;
+            socket.Close();
+            socket.Dispose();
+            return null;
         }
-
-        var socketUser = new SocketUser(socket);
-        _ = Task.Run(() => VirtualUserHandler(socketUser), socketUser.UserCancellation.Token);
-
-        return true;
-    }
-
-    public async Task<bool> TryDisconnect(IPEndPoint endPoint)
-    {
-        
     }
 
     private async Task VirtualUserHandler(SocketUser socketUser)

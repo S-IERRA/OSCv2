@@ -1,7 +1,10 @@
 using System.Net;
+using System.Net.Sockets;
 using System.Text.Json;
 using OSCv2_WS.Logic.Websocket;
+using OSCv2_WS.Objects;
 using Shared;
+using Shared.Constants;
 using Shared.Constants.RedisCommunication;
 using StackExchange.Redis;
 
@@ -14,6 +17,8 @@ public class WebsocketCommunication
     private static readonly ConnectionMultiplexer CacheClient = ConnectionMultiplexer.Connect("127.0.0.1:6379");
     private static readonly ISubscriber       RedisSubscriber = CacheClient.GetSubscriber();
 
+    private static readonly Dictionary<Guid, SocketUser> ClientList = new Dictionary<Guid, SocketUser>();
+
     private const string GeneralChannel = "general";
 
     //ToDo: add replies
@@ -23,23 +28,46 @@ public class WebsocketCommunication
         messageQueue.OnMessage(message =>
         {
             if (!JsonHelper.TryDeserialize<TransferMessage>(message.ToString(), out var transferMessage))
-            {
-                //RedisSubscriber.PublishAsync()
                 return;
-            }
 
             if (!Guid.TryParse(transferMessage.Data, out var sessionId))
                 return;
 
             switch (transferMessage.OpCodes)
             {
+                //ToDo: once heartbeat is moved, might have to start it here
                 case RedisOpCodes.Login:
-                    //ToDo: use a try method
-                    IPEndPoint ipEndPoint = IPEndPoint.Parse(transferMessage.Data);
-                    _ = SocketServer.TryConnect(ipEndPoint);
-                    break;
+                {
+                    if (!IPEndPoint.TryParse(transferMessage.Data, out var ipEndPoint))
+                        return;
 
-                
+                    Socket? socket = SocketServer.TryConnect(ipEndPoint);
+                    if (socket is null)
+                        return;
+
+                    var socketUser = new SocketUser(socket);
+                    ClientList.Add(sessionId, socketUser);
+
+                    socketUser.Send(WebSocketOpCodes.Hello);
+
+                    break;
+                }
+
+                case RedisOpCodes.Logout:
+                {
+                    SocketUser socket = ClientList.FirstOrDefault(x => x.Key == sessionId).Value;
+                    socket.Dispose(); //Closes and disposes the connection
+
+                    break;
+                }
+
+                case RedisOpCodes.Event:
+                {
+                    SocketUser socket = ClientList.FirstOrDefault(x => x.Key == sessionId).Value;
+                    socket.Send(WebSocketOpCodes.Event, transferMessage.Data);
+
+                    break;
+                }
             }
         });
     }

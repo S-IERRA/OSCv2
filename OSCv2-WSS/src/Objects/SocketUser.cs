@@ -1,3 +1,4 @@
+using System.Net;
 using System.Net.Sockets;
 using System.Text.Json;
 using Shared;
@@ -60,9 +61,10 @@ public record SocketUser(Socket UnderSocket) : IDisposable
     }
         
     public async Task Send(Events eventType, object message)
-    { 
-        string jsonMessage = JsonSerializer.Serialize(message);
+    {
+        if (message is not string)
+            message = JsonSerializer.Serialize(message);
             
-        await SendData(WebSocketOpCodes.Event, eventType, jsonMessage);
+        await SendData(WebSocketOpCodes.Event, eventType, (string)message);
     }
 }

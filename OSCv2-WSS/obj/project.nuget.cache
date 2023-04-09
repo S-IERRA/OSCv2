@@ -1,11 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "uEVaoc5lLZMsxOnhHeZXwKX6GaNcq0Bf8GRGmH16gFF0aykmzWD6LkYcRNybUHRUefaN10ia/WDUItYXmr3mAg==",
+  "dgSpecHash": "UUQ8f+aZBw8ybChFc68jC7yInb9fb/nQE7O57lgx3RpzPmNbAqS85Szc+/UQerGNCi0wEssy7cxTG2NdaQV3sQ==",
   "success": true,
   "projectFilePath": "D:\\projects\\OSCv2\\OSCv2-WSS\\OSCv2-WSS.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\some1\\.nuget\\packages\\fluentvalidation\\11.5.1\\fluentvalidation.11.5.1.nupkg.sha512",
     "C:\\Users\\some1\\.nuget\\packages\\hangfire.core\\1.8.0-rc3\\hangfire.core.1.8.0-rc3.nupkg.sha512",
+    "C:\\Users\\some1\\.nuget\\packages\\mapster\\7.4.0-pre06\\mapster.7.4.0-pre06.nupkg.sha512",
+    "C:\\Users\\some1\\.nuget\\packages\\mapster.core\\1.2.1-pre04\\mapster.core.1.2.1-pre04.nupkg.sha512",
     "C:\\Users\\some1\\.nuget\\packages\\microsoft.extensions.configuration\\2.0.0\\microsoft.extensions.configuration.2.0.0.nupkg.sha512",
     "C:\\Users\\some1\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\3.1.8\\microsoft.extensions.configuration.abstractions.3.1.8.nupkg.sha512",
     "C:\\Users\\some1\\.nuget\\packages\\microsoft.extensions.configuration.binder\\2.0.0\\microsoft.extensions.configuration.binder.2.0.0.nupkg.sha512",

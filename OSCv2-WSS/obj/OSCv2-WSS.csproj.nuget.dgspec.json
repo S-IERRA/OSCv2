@@ -131,6 +131,10 @@
               "target": "Package",
               "version": "[1.8.0-rc3, )"
             },
+            "Mapster": {
+              "target": "Package",
+              "version": "[7.4.0-pre06, )"
+            },
             "Serilog": {
               "target": "Package",
               "version": "[3.0.0-dev-01958, )"
