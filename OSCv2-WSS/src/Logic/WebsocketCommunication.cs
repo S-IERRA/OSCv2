@@ -10,6 +10,7 @@ using StackExchange.Redis;
 
 namespace OSCv2_WS.Logic;
 
+//ToDo: should be able to interface this with a custom event handler member
 public class WebsocketCommunication
 {
     public static readonly WebSocketServer SocketServer = new WebSocketServer();
@@ -48,7 +49,7 @@ public class WebsocketCommunication
                     var socketUser = new SocketUser(socket);
                     ClientList.Add(sessionId, socketUser);
 
-                    socketUser.Send(WebSocketOpCodes.Hello);
+                    _ =socketUser.Send(WebSocketOpCodes.Hello);
 
                     break;
                 }
@@ -64,7 +65,7 @@ public class WebsocketCommunication
                 case RedisOpCodes.Event:
                 {
                     SocketUser socket = ClientList.FirstOrDefault(x => x.Key == sessionId).Value;
-                    socket.Send(WebSocketOpCodes.Event, transferMessage.Data);
+                    _ = socket.Send(WebSocketOpCodes.Event, transferMessage.Data);
 
                     break;
                 }

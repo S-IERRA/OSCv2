@@ -11,7 +11,6 @@ using Shared.Constants;
 namespace OSCv2_WS.Logic.Websocket;
 
 //ToDo: add rate-limit via redis
-//ToDo: add client subscription via redis
 //ToDo: Microservice the heartbeat on redis and keep the bool value cached
 
 public class WebSocketServer : IDisposable

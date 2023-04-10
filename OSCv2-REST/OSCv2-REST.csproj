@@ -17,11 +17,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="src\Logic\Database\EntityFrameworkCore.cs" />
+    <ProjectReference Include="..\OSC-Shared\OSC-Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OSC-Shared\OSC-Shared.csproj" />
+    <Folder Include="src\Objects" />
   </ItemGroup>
 
 </Project>

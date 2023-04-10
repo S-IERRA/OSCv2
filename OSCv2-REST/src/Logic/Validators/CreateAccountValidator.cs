@@ -1,9 +1,9 @@
 using System.Text.RegularExpressions;
 using FluentValidation;
+using OSCv2.Objects.Layouts;
 using Shared.Constants;
-using Shared.DatabaseObjects;
 
-namespace Shared.Validators;
+namespace OSCv2.Logic.Validators;
 
 public class CreateAccountValidator : AbstractValidator<Account>
 {

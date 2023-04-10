@@ -15,6 +15,27 @@
           }
         }
       },
+      "Mapster/7.4.0-pre06": {
+        "type": "package",
+        "dependencies": {
+          "Mapster.Core": "1.2.1-pre04"
+        },
+        "compile": {
+          "lib/net7.0/Mapster.dll": {}
+        },
+        "runtime": {
+          "lib/net7.0/Mapster.dll": {}
+        }
+      },
+      "Mapster.Core/1.2.1-pre04": {
+        "type": "package",
+        "compile": {
+          "lib/net7.0/Mapster.Core.dll": {}
+        },
+        "runtime": {
+          "lib/net7.0/Mapster.Core.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.OpenApi/7.0.1": {
         "type": "package",
         "dependencies": {
@@ -728,6 +749,7 @@
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "FluentValidation": "11.5.1",
+          "Mapster": "7.4.0-pre06",
           "Serilog": "3.0.0-dev-01958",
           "Serilog.AspNetCore": "6.1.1-dev-00295",
           "Serilog.Sinks.Seq": "5.2.3-dev-00262"
@@ -763,6 +785,34 @@
         "lib/netstandard2.0/FluentValidation.xml",
         "lib/netstandard2.1/FluentValidation.dll",
         "lib/netstandard2.1/FluentValidation.xml"
+      ]
+    },
+    "Mapster/7.4.0-pre06": {
+      "sha512": "+hpfk4vOonrr4VAZ3x6i93puZHy3SBKm39ffCq7d8qjNTir5a9cPyvIFiqqyLlnIFXZOblMWbJEegO4RE8DJyw==",
+      "type": "package",
+      "path": "mapster/7.4.0-pre06",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "icon.png",
+        "lib/net6.0/Mapster.dll",
+        "lib/net7.0/Mapster.dll",
+        "mapster.7.4.0-pre06.nupkg.sha512",
+        "mapster.nuspec"
+      ]
+    },
+    "Mapster.Core/1.2.1-pre04": {
+      "sha512": "en93KNBjIGorx2I9mEhTqBUOGb2ybMLdaZMXpwpnQVaWnERy38EoLtK9FDd8WT16IDaC0A4otmGuNI1Szlm6CQ==",
+      "type": "package",
+      "path": "mapster.core/1.2.1-pre04",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "icon.png",
+        "lib/net6.0/Mapster.Core.dll",
+        "lib/net7.0/Mapster.Core.dll",
+        "mapster.core.1.2.1-pre04.nupkg.sha512",
+        "mapster.core.nuspec"
       ]
     },
     "Microsoft.AspNetCore.OpenApi/7.0.1": {

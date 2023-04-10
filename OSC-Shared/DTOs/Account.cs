@@ -1,12 +1,11 @@
-namespace Shared.DatabaseObjects;
+namespace Shared.DTOs;
 
-//ToDo: convert to DTo
-public class Account
+//Convert to DTo with mapster
+public class AccountDto
 {
     public Guid Id { get; set; }
     public Guid? SessionId { get; set; }
     
     public required string Username { get; set; }
     public required string Email { get; set; }
-    public required string Password { get; set; }
 }

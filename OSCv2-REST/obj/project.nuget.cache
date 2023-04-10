@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "GCgn+HjHd0gJHKUTOftvZ6s7R5JW/+OO+fYoqJ2JaaRn0QjOCtA4wDNrIkAPQuChNVGUqTZxu9KctF1LlwEBuQ==",
+  "dgSpecHash": "QPBjeMnoE0VlRHx2kO26NYdB/sBvm6mdLiGsyqVqRFJHdNyeKFZGY3s22GVh3hodGYn0MnLCj2SwnsyagyYmcA==",
   "success": true,
   "projectFilePath": "D:\\projects\\OSCv2\\OSCv2-REST\\OSCv2-REST.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\some1\\.nuget\\packages\\fluentvalidation\\11.5.1\\fluentvalidation.11.5.1.nupkg.sha512",
+    "C:\\Users\\some1\\.nuget\\packages\\mapster\\7.4.0-pre06\\mapster.7.4.0-pre06.nupkg.sha512",
+    "C:\\Users\\some1\\.nuget\\packages\\mapster.core\\1.2.1-pre04\\mapster.core.1.2.1-pre04.nupkg.sha512",
     "C:\\Users\\some1\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.1\\microsoft.aspnetcore.openapi.7.0.1.nupkg.sha512",
     "C:\\Users\\some1\\.nuget\\packages\\microsoft.entityframeworkcore\\8.0.0-preview.2.23128.3\\microsoft.entityframeworkcore.8.0.0-preview.2.23128.3.nupkg.sha512",
     "C:\\Users\\some1\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\8.0.0-preview.2.23128.3\\microsoft.entityframeworkcore.abstractions.8.0.0-preview.2.23128.3.nupkg.sha512",

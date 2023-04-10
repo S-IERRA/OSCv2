@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "pCYA+OPK/ZO6jZLfqbkrkoqBanpq7qAuF7fiGX2WEu1nUxZGby2la+A2IM0Gmh6UFDQi40IWWl8fzGGE5GfWAQ==",
+  "dgSpecHash": "NP5260lcaA1391OEKNgltTnseYJKx/3lG7hsvuADPdvl5lvIm3hn039VHYW6VNtChoeXWOjkUSTCHXAV3AcFIQ==",
   "success": true,
   "projectFilePath": "D:\\projects\\OSCv2\\OSC-Shared\\OSC-Shared.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\some1\\.nuget\\packages\\fluentvalidation\\11.5.1\\fluentvalidation.11.5.1.nupkg.sha512",
+    "C:\\Users\\some1\\.nuget\\packages\\mapster\\7.4.0-pre06\\mapster.7.4.0-pre06.nupkg.sha512",
+    "C:\\Users\\some1\\.nuget\\packages\\mapster.core\\1.2.1-pre04\\mapster.core.1.2.1-pre04.nupkg.sha512",
     "C:\\Users\\some1\\.nuget\\packages\\microsoft.extensions.configuration\\2.0.0\\microsoft.extensions.configuration.2.0.0.nupkg.sha512",
     "C:\\Users\\some1\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\3.1.8\\microsoft.extensions.configuration.abstractions.3.1.8.nupkg.sha512",
     "C:\\Users\\some1\\.nuget\\packages\\microsoft.extensions.configuration.binder\\2.0.0\\microsoft.extensions.configuration.binder.2.0.0.nupkg.sha512",

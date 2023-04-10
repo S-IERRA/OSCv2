@@ -556,6 +556,7 @@
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "FluentValidation": "11.5.1",
+          "Mapster": "7.4.0-pre06",
           "Serilog": "3.0.0-dev-01958",
           "Serilog.AspNetCore": "6.1.1-dev-00295",
           "Serilog.Sinks.Seq": "5.2.3-dev-00262"
