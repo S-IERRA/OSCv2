@@ -1,24 +1,32 @@
 using System.Text.RegularExpressions;
 using FluentValidation;
-using OSCv2.Objects.Layouts;
 using Shared.Constants;
+using Shared.Layouts;
 
 namespace OSCv2.Logic.Validators;
 
 public class CreateAccountValidator : AbstractValidator<Account>
 {
+    private static readonly Regex UsernameRegex =
+        new Regex("""^[a-zA-Z0-9_-]""", RegexOptions.Compiled | RegexOptions.NonBacktracking);
+
+    private static readonly Regex PasswordRegex =
+        new Regex("""^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[a-zA-Z\d@$!%*#?&]""", RegexOptions.Compiled);
+    
     public CreateAccountValidator()
     {
         RuleFor(x => x.Username)
             .NotEmpty()
             .Length(3, 24)
-            .WithMessage("");
-        
+            .WithMessage(ErrorMessages.InvalidUsernameLength)
+            .Matches(UsernameRegex)
+            .WithMessage(ErrorMessages.InvalidUsernameCharacters);
+
         RuleFor(x => x.Password)
             .NotEmpty()
             .Length(8, 27)
             .WithMessage(ErrorMessages.InvalidPasswordLength)
-            .Matches(new Regex("""^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[a-zA-Z\d@$!%*#?&]{8,}$""", RegexOptions.Compiled | RegexOptions.NonBacktracking))
+            .Matches(PasswordRegex)
             .WithMessage(ErrorMessages.InvalidPasswordCharacters); 
     }
 }

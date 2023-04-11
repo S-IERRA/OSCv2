@@ -1,17 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Shared.Layouts;
 
 namespace OSCv2.Logic.Database;
 
-public class Role : IEntityTypeConfiguration<Role>
+public class RoleConfiguration : IEntityTypeConfiguration<Role>
 {
-    public required Guid Id { get; set; }
-
-    public required uint HexColour { get; set; }
-
-    public required Guid ServerId { get; set; }
-    public Server Server { get; set; }
-    
     public void Configure(EntityTypeBuilder<Role> builder)
     {
         builder.ToTable("Roles");

@@ -1,15 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Shared.Layouts;
 
 namespace OSCv2.Logic.Database;
 
-public class Invite : IEntityTypeConfiguration<Invite>
+public class InviteConfiguration : IEntityTypeConfiguration<Invite>
 {
-    public required Guid Id { get; set; }
-
-    public required Guid ServerId { get; set; }
-    public required string InviteCode { get; set; }
-    
     public void Configure(EntityTypeBuilder<Invite> builder)
     {
         builder.ToTable("Invites");

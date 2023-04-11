@@ -1,4 +1,11 @@
+using OSCv2.Logic.Database;
 using Serilog;
+
+/*
+EntityFrameworkFactory factory = new();
+var ctx = factory.CreateDbContext();
+await ctx.Database.EnsureCreatedAsync();
+*/
 
 //ToDo: move this else-where
 var logger = new LoggerConfiguration()

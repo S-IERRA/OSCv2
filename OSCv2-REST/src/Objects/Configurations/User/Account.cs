@@ -1,17 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Shared.Layouts;
 
 namespace OSCv2.Objects.Layouts;
 
-public class Account : IEntityTypeConfiguration<Account>
+public class AccountConfiguration : IEntityTypeConfiguration<Account>
 {
-    public Guid Id { get; set; }
-    public Guid? SessionId { get; set; }
-    
-    public required string Username { get; set; }
-    public required string Email { get; set; }
-    public required string Password { get; set; }
-    
     public void Configure(EntityTypeBuilder<Account> builder)
     {
         builder.ToTable("Users");

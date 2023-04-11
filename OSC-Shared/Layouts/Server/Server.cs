@@ -1,10 +1,6 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using OSCv2.Objects.Layouts;
+namespace Shared.Layouts;
 
-namespace OSCv2.Logic.Database;
-
-public class Server : IEntityTypeConfiguration<Server>
+public class Server
 {
     public required Guid Id { get; set; }
 
@@ -18,16 +14,4 @@ public class Server : IEntityTypeConfiguration<Server>
     public virtual ICollection<Channel> Channels { get; set; } = new HashSet<Channel>();
     public virtual ICollection<Invite> InviteCodes { get; set; } = new HashSet<Invite>();
     public virtual ICollection<ServerSubscriber> Subscribers { get; set; } = new HashSet<ServerSubscriber>();
-
-    public void Configure(EntityTypeBuilder<Server> builder)
-    {
-        builder.ToTable("Servers");
-        
-        builder.Property(e => e.Name).IsRequired();
-        
-        builder.HasOne(e => e.Owner)
-            .WithMany()
-            .HasForeignKey(e => e.OwnerId)
-            .IsRequired();
-    }
 }

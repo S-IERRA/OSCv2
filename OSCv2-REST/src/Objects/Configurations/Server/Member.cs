@@ -1,21 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using OSCv2.Objects.Layouts;
+using Shared.Layouts;
 
 namespace OSCv2.Logic.Database;
 
-public class Member : IEntityTypeConfiguration<Member>
+public class MemberConfiguration : IEntityTypeConfiguration<Member>
 {
-    public required Guid UserId { get; set; }
-    public Account User { get; set; }
-
-    public required Guid ServerId { get; set; }
-    public Server Server { get; set; }
-
-    public Permissions Permissions { get; set; }
-
-    public virtual ICollection<Role> Roles { get; set; } = new HashSet<Role>();
-    
     public void Configure(EntityTypeBuilder<Member> builder)
     {
         builder.ToTable("Members");

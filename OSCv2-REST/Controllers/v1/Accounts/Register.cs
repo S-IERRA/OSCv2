@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 
 using OSCv2.Logic.Database;
 using OSCv2.Logic.Validators;
-using OSCv2.Objects.Layouts;
 using Shared.Constants;
+using Shared.Layouts;
 
 namespace OSCv2.Controllers.v1.accounts;
 

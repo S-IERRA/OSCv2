@@ -1,4 +1,4 @@
-namespace OSCv2.Objects.Layouts;
+namespace Shared.Layouts;
 
 [Flags]
 public enum Permissions

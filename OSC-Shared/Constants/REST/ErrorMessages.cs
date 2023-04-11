@@ -15,9 +15,13 @@ public static class ErrorMessages
     public const string InvalidEmail = "Invalid Email.";
     public const string EmailAlreadyExists = "Email is already registered.";
     public const string InvalidUserOrPass = "Invalid username or password.";
-    
+
+    public const string InvalidUsernameLength = "Invalid username length, username must be 3-24 characters long.";
     public const string InvalidPasswordLength = "Invalid password length, password must be 6-27 characters long.";
+    
     public const string InvalidPasswordCharacters = "Password must have atleast 1 upper-case letter and 1 special character in it.";
+
+    public const string InvalidUsernameCharacters = "The username must be between 3 and 16 characters long and may only contain letters, digits, underscores, and hyphens";
 
     public const string InvalidSession = "Session does not exist.";
 }
