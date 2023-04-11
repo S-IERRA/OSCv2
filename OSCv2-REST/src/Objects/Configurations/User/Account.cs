@@ -11,7 +11,7 @@ public class AccountConfiguration : IEntityTypeConfiguration<Account>
         builder.ToTable("Users");
 
         builder.Property(x => x.Username).IsRequired();
-        builder.Property(x => x.Password).IsRequired();
+        builder.Property(x => x.HashedPassword).IsRequired();
         builder.Property(x => x.Email).IsRequired();
     }
 }

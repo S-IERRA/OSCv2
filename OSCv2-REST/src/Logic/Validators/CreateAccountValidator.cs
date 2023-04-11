@@ -1,11 +1,12 @@
 using System.Text.RegularExpressions;
 using FluentValidation;
 using Shared.Constants;
+using Shared.DTOs.Verifications;
 using Shared.Layouts;
 
 namespace OSCv2.Logic.Validators;
 
-public class CreateAccountValidator : AbstractValidator<Account>
+public class CreateAccountValidator : AbstractValidator<RegisterDTo>
 {
     private static readonly Regex UsernameRegex =
         new Regex("""^[a-zA-Z0-9_-]""", RegexOptions.Compiled | RegexOptions.NonBacktracking);
