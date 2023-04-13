@@ -14,15 +14,15 @@ public static class JsonHelper
                 return false;
 
             using var document = JsonDocument.Parse(message);
-
             if (document.RootElement.TryGetProperty("Error", out _))
                 return false;
 
-            result = JsonSerializer.Deserialize<TClass>(message)!;
+            result = JsonSerializer.Deserialize<TClass>(document.RootElement.GetRawText())!;
             return true;
         }
-        catch
+        catch(Exception e)
         {
+            Console.WriteLine(e.Message);
             return false;
         }
     }

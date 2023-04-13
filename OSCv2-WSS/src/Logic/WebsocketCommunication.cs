@@ -3,6 +3,7 @@ using System.Net.Sockets;
 using System.Text.Json;
 using OSCv2_WS.Logic.Websocket;
 using OSCv2_WS.Objects;
+using Serilog;
 using Shared;
 using Shared.Constants;
 using Shared.Constants.RedisCommunication;
@@ -13,7 +14,7 @@ namespace OSCv2_WS.Logic;
 //ToDo: should be able to interface this with a custom event handler member
 public class WebsocketCommunication
 {
-    public static readonly WebSocketServer SocketServer = new WebSocketServer();
+    private static readonly WebSocketServer SocketServer = new WebSocketServer();
     
     private static readonly ConnectionMultiplexer CacheClient = ConnectionMultiplexer.Connect("127.0.0.1:6379");
     private static readonly ISubscriber       RedisSubscriber = CacheClient.GetSubscriber();
@@ -28,26 +29,29 @@ public class WebsocketCommunication
         ChannelMessageQueue messageQueue = RedisSubscriber.Subscribe(GeneralChannel);
         messageQueue.OnMessage(message =>
         {
-            if (!JsonHelper.TryDeserialize<TransferMessage>(message.ToString(), out var transferMessage))
+            if (!JsonHelper.TryDeserialize<TransferMessage>(message.Message, out var transferMessage))
                 return;
-
-            if (!Guid.TryParse(transferMessage.Data, out var sessionId))
-                return;
+            
+            Log.Debug("received: {TransferMessage}", transferMessage.ToString());
 
             switch (transferMessage.OpCodes)
             {
                 //ToDo: once heartbeat is moved, might have to start it here
                 case RedisOpCodes.Login:
                 {
-                    if (!IPEndPoint.TryParse(transferMessage.Data, out var ipEndPoint))
+                    Console.WriteLine(1);
+                    
+                    if (!IPEndPoint.TryParse($"[{transferMessage.Data}]", out var ipEndPoint))
                         return;
 
+                    Console.WriteLine(2);
+                    
                     Socket? socket = SocketServer.TryConnect(ipEndPoint);
                     if (socket is null)
                         return;
 
                     var socketUser = new SocketUser(socket);
-                    ClientList.Add(sessionId, socketUser);
+                    ClientList.Add(transferMessage.SessionId, socketUser);
 
                     _ =socketUser.Send(WebSocketOpCodes.Hello);
 
@@ -56,7 +60,7 @@ public class WebsocketCommunication
 
                 case RedisOpCodes.Logout:
                 {
-                    SocketUser socket = ClientList.FirstOrDefault(x => x.Key == sessionId).Value;
+                    SocketUser socket = ClientList.FirstOrDefault(x => x.Key == transferMessage.SessionId).Value;
                     socket.Dispose(); //Closes and disposes the connection
 
                     break;
@@ -64,7 +68,7 @@ public class WebsocketCommunication
 
                 case RedisOpCodes.Event:
                 {
-                    SocketUser socket = ClientList.FirstOrDefault(x => x.Key == sessionId).Value;
+                    SocketUser socket = ClientList.FirstOrDefault(x => x.Key == transferMessage.SessionId).Value;
                     _ = socket.Send(WebSocketOpCodes.Event, transferMessage.Data);
 
                     break;

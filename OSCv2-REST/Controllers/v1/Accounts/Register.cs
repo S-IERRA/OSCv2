@@ -25,7 +25,6 @@ public class RegisterController : ControllerBase
     }
     
     //ToDo: add Re-Captcha validation
-    //ToDo: impl password hashing
     [HttpPost("{username}/{email}/{password}")]
     public async Task<IActionResult> Post(string username, string email, string password)
     {
@@ -41,6 +40,7 @@ public class RegisterController : ControllerBase
             return BadRequest(result.Errors);
         
         userAccount.HashedPassword = Pbkdf2.CreateHash(password);
+        _logger.LogDebug(userAccount.HashedPassword);
 
         var ctxFactory = new EntityFrameworkFactory();
         await using var ctx = ctxFactory.CreateDbContext();

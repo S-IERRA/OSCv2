@@ -1,3 +1,6 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using Microsoft.Extensions.DependencyModel;
+using OSCv2_Client.Logic;
 
-Console.WriteLine("Hello, World!");
+var ws = new WebSocketHandler();
+
+Thread.Sleep(-1);

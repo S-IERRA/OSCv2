@@ -43,6 +43,7 @@ public class WebSocketServer : IDisposable
         try
         {
             socket.Connect(endPoint);
+            Log.Information("Attempting connection with {}", socket.RemoteEndPoint);
 
             var socketUser = new SocketUser(socket);
             _ = VirtualUserHandler(socketUser);
@@ -50,6 +51,8 @@ public class WebSocketServer : IDisposable
         }
         catch
         {
+            Log.Error("Failed connection with {}", socket.RemoteEndPoint);
+            
             socket.Close();
             socket.Dispose();
             return null;

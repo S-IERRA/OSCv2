@@ -1,4 +1,5 @@
-﻿using OSCv2_WS.Logic.Websocket;
+﻿using OSCv2_WS.Logic;
+using OSCv2_WS.Logic.Websocket;
 using OSCv2_WS.Objects;
 using Serilog;
 
@@ -9,3 +10,7 @@ Log.Logger = new LoggerConfiguration()
     .CreateLogger();
     
 Log.Information("Server started");
+
+var communicator = new WebsocketCommunication();
+
+Thread.Sleep(-1);

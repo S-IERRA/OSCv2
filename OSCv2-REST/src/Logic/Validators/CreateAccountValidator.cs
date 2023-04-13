@@ -22,6 +22,11 @@ public class CreateAccountValidator : AbstractValidator<RegisterDTo>
             .WithMessage(ErrorMessages.InvalidUsernameLength)
             .Matches(UsernameRegex)
             .WithMessage(ErrorMessages.InvalidUsernameCharacters);
+        
+        RuleFor(x => x.Email)
+            .EmailAddress()
+            .Length(0, 254)
+            .WithMessage(ErrorMessages.InvalidEmail);
 
         RuleFor(x => x.Password)
             .NotEmpty()

@@ -1,3 +1,4 @@
+using System.Reflection.Emit;
 using System.Text.Json;
 using Shared;
 using Shared.Constants.RedisCommunication;
@@ -8,33 +9,44 @@ namespace OSCv2.Logic;
 //This is a very light transaction module, we use it mainly for data transactions from REST to WS, although it can support WS <-> REST fully
 //ToDo: might be possible to convert the message-queue to a  hangfire task and have it as a long running task there
 
-public class WebsocketCommunication
+public interface IWebsocketCommunicationService
 {
-    private static readonly ConnectionMultiplexer CacheClient = ConnectionMultiplexer.Connect("127.0.0.1:6379");
-    private static readonly ISubscriber       RedisSubscriber = CacheClient.GetSubscriber();
+    Task SendAsync(Guid sessionId, string message);
+    Task SendAsync(RedisOpCodes opCode, Guid sessionId);
+    Task SendAsync(RedisOpCodes opCode, Guid sessionId, string message);
+}
 
+public class WebsocketCommunicationService : IWebsocketCommunicationService
+{
+    private readonly ISubscriber _redisSubscriber;
     private const string GeneralChannel = "general";
 
-    //General message channel handling, i.e login/logout
-    public WebsocketCommunication()
+    public WebsocketCommunicationService(ISubscriber redisSubscriber)
     {
-        ChannelMessageQueue messageQueue = RedisSubscriber.Subscribe(GeneralChannel);
-        messageQueue.OnMessage(message =>
+        _redisSubscriber = redisSubscriber;
+        ChannelMessageQueue messageQueue = _redisSubscriber.Subscribe(GeneralChannel);
+        messageQueue.OnMessage(async message =>
         {
             //Currently no messages to handle
-            if (!JsonHelper.TryDeserialize<TransferMessage>(message.ToString(), out var transferMessage))
+            if (!JsonHelper.TryDeserialize<TransferMessage>(message.Message, out var transferMessage))
             {
-                //RedisSubscriber.PublishAsync()
+                await _redisSubscriber.PublishAsync(GeneralChannel, message.ToString());
                 return;
             }
         });
     }
 
-    public static async Task SendAsync(Guid sessionId, string message)
+    public async Task SendAsync(RedisOpCodes opCode, Guid sessionId, string message)
     {
-        var transferMessage = new TransferMessage(RedisOpCodes.Event, sessionId, message);
+        var transferMessage = new TransferMessage(opCode, sessionId, message);
         string serializedData = JsonSerializer.Serialize(transferMessage);
 
-        await RedisSubscriber.PublishAsync(GeneralChannel, serializedData);
+        await _redisSubscriber.PublishAsync(GeneralChannel, serializedData);
     }
+
+    public async Task SendAsync(Guid sessionId, string message) =>
+        await SendAsync(RedisOpCodes.Event, sessionId, message);
+
+    public async Task SendAsync(RedisOpCodes opCode, Guid sessionId) =>
+        await SendAsync(opCode, sessionId, "");
 }
