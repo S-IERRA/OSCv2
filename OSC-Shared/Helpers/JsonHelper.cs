@@ -17,7 +17,7 @@ public static class JsonHelper
             if (document.RootElement.TryGetProperty("Error", out _))
                 return false;
 
-            result = JsonSerializer.Deserialize<TClass>(document.RootElement.GetRawText())!;
+            result = document.RootElement.Deserialize<TClass>()!;
             return true;
         }
         catch(Exception e)

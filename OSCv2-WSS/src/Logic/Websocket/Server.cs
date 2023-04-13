@@ -49,9 +49,9 @@ public class WebSocketServer : IDisposable
             _ = VirtualUserHandler(socketUser);
             return socket;
         }
-        catch
+        catch (Exception e)
         {
-            Log.Error("Failed connection with {}", socket.RemoteEndPoint);
+            Log.Error("Failed connection with {endPoint} because {exception}", socket.RemoteEndPoint.ToString(), e.Message);
             
             socket.Close();
             socket.Dispose();

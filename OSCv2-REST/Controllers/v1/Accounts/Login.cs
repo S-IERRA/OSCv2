@@ -42,10 +42,16 @@ public class LoginController : ControllerBase
         
         await ctx.SaveChangesAsync();
 
-        //ToDo: add WS check
+        //ToDo: add WS check (reply)
 
-        var connection = HttpContext.Connection;
-        await _websocketService.SendAsync(RedisOpCodes.Login, sessionId, $"{connection.RemoteIpAddress}:{connection.RemotePort}");
+        ConnectionInfo connection = HttpContext.Connection;
+        IPAddress remoteIp = connection.RemoteIpAddress!; //ToDo: add null check
+        
+        string ipString = remoteIp.GetAddressBytes().Length > 4
+            ? $"[{remoteIp}]"
+            : $"{remoteIp}";
+        
+        await _websocketService.SendAsync(RedisOpCodes.Login, sessionId, $"{ipString}:{connection.RemotePort}");
 
         return Ok((AccountReturnDto)userAccount);
     }

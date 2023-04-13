@@ -39,12 +39,9 @@ public class WebsocketCommunication
                 //ToDo: once heartbeat is moved, might have to start it here
                 case RedisOpCodes.Login:
                 {
-                    Console.WriteLine(1);
-                    
-                    if (!IPEndPoint.TryParse($"[{transferMessage.Data}]", out var ipEndPoint))
+                    //ToDo: runtime error figure it out
+                    if (!IPEndPoint.TryParse(transferMessage.Data, out var ipEndPoint))
                         return;
-
-                    Console.WriteLine(2);
                     
                     Socket? socket = SocketServer.TryConnect(ipEndPoint);
                     if (socket is null)
